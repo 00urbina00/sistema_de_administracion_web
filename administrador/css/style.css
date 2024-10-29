@@ -1,0 +1,109 @@
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+body {
+    margin: 20px;
+}
+
+.botones a {
+    margin-right: 15px;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #FFFFFF;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.botones a:hover {
+    background-color: #0056b3;
+}
+
+.tabla {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.fila {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+}
+
+.fila_header {
+    background-color: #084853;
+    color: #FFFFFF;
+}
+
+.columna {
+    flex: 1;
+    padding: 12px;
+    text-align: left;
+    border-right: 1px solid #ddd;
+}
+
+.fila .boton_accion {
+    padding: 5px 10px;
+    background-color: #d61600;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fila .boton_accion:hover {
+    background-color: #af1200;
+}
+
+/* --------------------------------------------------------- */
+form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+#mensaje {
+    color: #FF0000;
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.link-centrado {
+    text-align: center; /* Centra el contenido */
+    margin-top: 20px;   /* Espacio entre el formulario y el enlace */
+}

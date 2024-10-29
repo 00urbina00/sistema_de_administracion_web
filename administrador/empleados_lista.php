@@ -8,61 +8,13 @@
 <!DOCTYPE html>
     <head>
         <title>Listado de Empleados</title>
-        <style>
-            body {
-                margin: 20px;
-            }
-            .botones a {
-                margin-right: 15px;
-                text-decoration: none;
-                padding: 10px 15px;
-                background-color: #007bff;
-                color: white;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-            }
-            .botones a:hover {
-                background-color: #0056b3;
-            }
-            .tabla {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 20px;
-            }
-            .fila {
-                display: flex;
-                flex-direction: row;
-                border: 1px solid #ddd;
-            }
-            .fila_header {
-                background-color: #084853;
-                color: white;
-            }
-            .columna {
-                flex: 1;
-                padding: 12px;
-                text-align: left;
-                border-right: 1px solid #ddd;
-            }
-            .fila .boton_accion {
-                padding: 5px 10px;
-                background-color: #d61600;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .fila .boton_accion:hover {
-                background-color: #af1200;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/jquery.js"></script>
             <script>
-                function elimina_empleado($id, element){
+                function elimina_empleado($id){
                     if(!confirm('Estás seguro de borrar al empleado '+$id+'?')) return;
                     $.ajax({
-                        url     :'respuesta.php',
+                        url     :'elimina_empleado.php',
                         type    :'post',
                         dataType:'text',
                         data    :'id='+$id, 
@@ -70,7 +22,7 @@
                             console.log(res);
                             if(res == 1){
                                 alert('Empleado eliminado correctamente!');
-                                $(element).closest('.fila').remove();
+                                location.reload();
                             }else{
                                 alert('Error al eliminar empleado.');
                             }
@@ -88,8 +40,7 @@
         <h1>Listado de empleados (<?php echo $num; ?>)</h1>
 
         <div class="botones">
-            <a href="empleados_alta.php">Crear nuevo</a>
-            <a href="nuevo.php">Eliminar uno</a>
+            <a href="empleados_alta.php">Dar de alta</a>
         </div>
 
         <div class="tabla">
@@ -120,7 +71,7 @@
                         <div class='columna'>$void</div>
                         <div class='columna'>$void</div>
                         <div class='columna'>
-                            <button class='boton_accion' onclick='elimina_empleado($id, this)'>Eliminar</button>
+                            <button class='boton_accion' onclick='elimina_empleado($id)'>Eliminar</button>
                         </div>
                     </div>";
             }

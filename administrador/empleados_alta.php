@@ -1,59 +1,96 @@
 <html>
     <head>
-        <style>
-            #mensaje {
-                color: #F00;
-                font-size: 16px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/jquery.js"></script>
         <script>
-            function validarFormulario() {
-                var nombre = document.user.nombre.value;
-                var apellido = document.user.apellido.value;
+            function valida_correo() {
+                return new Promise((resolve, reject) => {
+                    var correo = document.user.correo.value;
+                    $.ajax({
+                        url: 'existe_correo.php',
+                        type: 'post',
+                        dataType: 'text',
+                        data: 'correo=' + correo,
+                        success: function(res) {
+                            console.log(res);
+                            if (res == 1) {
+                                $('#correoError').show();
+                                $('#correoError').html('El correo '+correo + ' ya existe.');
+                                setTimeout(function() {
+                                    $('#correoError').html('');
+                                    $('#correoError').hide();
+                                }, 5000);
+                                resolve(false); // El correo ya existe
+                            } else {
+                                $('#correoError').hide();
+                                resolve(true); // El correo no existe
+                            }
+                        },
+                        error: function() {
+                            $('#correoError').hide();
+                            reject();
+                        }
+                    });
+                });
+            }
+            async function validarFormulario(event) {
+                // Funcion de javascript
+                event.preventDefault();
+
+                var nombre = document.user.nombre.value.trim();
+                var apellido = document.user.apellido.value.trim();
                 var correo = document.user.correo.value.trim();
                 var pass = document.user.pass.value.trim();
                 var rol = document.user.rol.value;
 
+                // Validar campos vacíos
                 if (nombre === "" || apellido === "" || correo === "" || pass === "" || rol === "0") {
-                    alert("Faltan campos por llenar");
-                } else {
-                    document.user.method = 'post';
-                    document.user.action = 'empleados_salva.php';
-                    document.user.submit();
+                    $('#mensaje').show();
+                    $('#mensaje').html('Faltan campos por llenar');
+                    setTimeout(function() {
+                        $('#mensaje').html('');
+                        $('#mensaje').hide();
+                    }, 5000);
+                    return false;
                 }
-            }
-            function sale(){
-                // Mostrar mensaje con jQuery cuando el usuario sale de un campo
-                $('#mensaje').show();
-                $('#mensaje').html('Sale del campo');
 
-                // Limpiar el mensaje después de 1.5 segundos
-                setTimeout(function() {
-                    $('#mensaje').html('');
-                }, 1500);
+                // Validar correo con AJAX
+                const correoValido = await valida_correo();
+                if (!correoValido) {
+                    return false; // No enviar formulario si el correo ya existe
+                }
+
+                // Enviar formulario
+                document.user.method = 'post';
+                document.user.action = 'empleados_salva.php';
+                document.user.submit();
             }
         </script>
         <title>Formulario</title>
-        <div>Alta de empleados</div> 
-        <br>
-        <a href="empleados_lista.php">Volver</a>
-        <br><br>
-        
     </head>
     <body>
-        <form name="user" method="post" action="empleados_salva.php">
-            <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> <br>
-            <input type="text" name="apellido" id="last_name" placeholder="Escribe tu apellido"/> <br>
-            <input onblur="sale();" type="text" name="correo" id="mail" value="@udg.mx"/> <br>
-            <input type="password" name="pass" id="pass" placeholder="Escribe tu password"/> <br>
-            <select name="rol" id="rol">
-                <option value="0">Seleccionar</option>
-                <option value="1">Gerente</option>
-                <option value="2">Ejecutivo</option>
-            </select>
-            <br>
-            <input onclick="validarFormulario();" type="submit" value="Salvar"/>
-        </form>
+        <h1>Alta de empleados</h1> 
+        <div text-align="center">
+            <!-- Formulario -->
+            <form name="user" id="formulario" onsubmit="validarFormulario(event);">
+                <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> 
+                <input type="text" name="apellido" id="last_name" placeholder="Escribe tu apellido"/> 
+                <div style="position: relative;">
+                    <input onblur="valida_correo();" type="text" name="correo" id="mail" value="@udg.mx"/> 
+                    <div style="color: red; display: none;" id="correoError"></div> <!-- Contenedor para el mensaje de error -->
+                </div>
+                <input type="password" name="pass" id="pass" placeholder="Escribe tu password"/> 
+                <select name="rol" id="rol">
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Gerente</option>
+                    <option value="2">Ejecutivo</option>
+                </select>
+                <input type="submit" value="Enviar"/>
+                <div class="link-centrado" id="mensaje"></div>
+            </form>
+            <div class="link-centrado">
+                <a href="empleados_lista.php">Regresar al listado</a>
+            </div>
+        </div>
     </body>
 </html>
