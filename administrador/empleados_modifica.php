@@ -84,7 +84,7 @@
                 $tmp_rol = $_GET['rol'];
                 $rol = ($tmp_rol == 1) ? 'Gerente' : 'Ejecutivo';
             ?>
-            <form name="user" id="formulario" onsubmit="validarFormulario(event, <?php echo $id; ?>);">
+            <form name="user" id="formulario" enctype="multipart/form-data" onsubmit="validarFormulario(event, <?php echo $id; ?>);">
                 <input type="hidden" name="id" value="<?php echo $id; ?>"> <!-- Campo oculto para enviar el id también -->
                 <input type="text" name="nombre" id="name" value="<?php echo $nombre; ?>"/> 
                 <input type="text" name="apellidos" id="last_name" value="<?php echo $apellidos; ?>"/> 
@@ -98,6 +98,7 @@
                     <option value="1" <?php if ($tmp_rol == 1) echo 'selected'; ?>>Gerente</option>
                     <option value="2" <?php if ($tmp_rol == 2) echo 'selected'; ?>>Ejecutivo</option>
                 </select>
+                <input type="file" id="archivo" name="archivo"><br><br>
                 <input type="submit" value="Enviar"/>
                 <div class="link-centrado" id="mensaje"></div>
             </form>

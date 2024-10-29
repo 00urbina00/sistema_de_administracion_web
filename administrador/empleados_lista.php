@@ -37,7 +37,7 @@
         </style>
         <script src="js/jquery.js"></script>
             <script>
-                function elimina_empleado($id){
+                function elimina_empleado($id, element){
                     if(!confirm('Estás seguro de borrar al empleado '+$id+'?')) return;
                     $.ajax({
                         url     :'elimina_empleado.php',
@@ -48,6 +48,7 @@
                             console.log(res);
                             if(res == 1){
                                 alert('Empleado eliminado correctamente!');
+                                $(element).closest('.fila').remove();
                             }else{
                                 alert('Error al eliminar empleado.');
                             }
@@ -77,7 +78,8 @@
                                 window.location.href = 'ver_detalle.php?nombre=' + res.nombre + 
                                                     '&apellidos=' + res.apellidos +
                                                     '&correo=' + res.correo + 
-                                                    '&rol=' + res.rol;
+                                                    '&rol=' + res.rol + 
+                                                    '&archivo=' + encodeURIComponent(res.archivo);
                             }
                         },  
                         error: function() {
@@ -158,7 +160,7 @@
                             <button class='boton_accion-editar' onclick='edita_empleado($id)'>Editar</button>
                         </div>
                         <div class='columna'>
-                            <button class='boton_accion' onclick='elimina_empleado($id)'>Eliminar</button>
+                            <button class='boton_accion' onclick='elimina_empleado($id, this)'>Eliminar</button>
                         </div>
                     </div>";
             }

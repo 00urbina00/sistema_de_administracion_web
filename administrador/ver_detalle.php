@@ -23,9 +23,16 @@
             $correo = $_GET['correo'];
             $tmp_rol = $_GET['rol'];
             $rol = ($tmp_rol == 1) ? 'Gerente' : 'Ejecutivo';
+            $foto = $_GET['archivo'];
+            if ($foto == '') {
+                $foto = 'default.jpg';
+            }
             ?>
 
-            <h2><?php echo $nombre . " " . $apellidos; ?></h2>
+            <div class="detalle-empleado">
+                <img src="archivos/<?php echo $foto; ?>" alt="Foto de perfil" class="foto-perfil">
+                <h2><?php echo $nombre . " " . $apellidos; ?></h2>
+            </div>
 
             <div class="tabla-detalle">
                 <div class="fila-detalle">

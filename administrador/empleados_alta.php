@@ -47,8 +47,10 @@
                 var pass = document.user.pass.value.trim();
                 var rol = document.user.rol.value;
 
+                var archivo = document.user.archivo.files[0];
+
                 // Validar campos vacíos
-                if (nombre === "" || apellidos === "" || correo === "" || pass === "" || rol === "0") {
+                if (nombre === "" || apellidos === "" || correo === "" || pass === "" || rol === "0" || archivo === undefined) {
                     $('#mensaje').show();
                     $('#mensaje').html('Faltan campos por llenar');
                     setTimeout(function() {
@@ -76,7 +78,7 @@
         <h1>Alta de empleados</h1> 
         <div text-align="center">
             <!-- Formulario -->
-            <form name="user" id="formulario" onsubmit="validarFormulario(event);">
+            <form name="user" id="formulario" enctype="multipart/form-data" method="post" action="empleados_registra.php" onsubmit="validarFormulario(event);">
                 <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> 
                 <input type="text" name="apellidos" id="last_name" placeholder="Escribe tu apellido"/> 
                 <div style="position: relative;">
@@ -89,9 +91,11 @@
                     <option value="1">Gerente</option>
                     <option value="2">Ejecutivo</option>
                 </select>
+                <input type="file" id="archivo" name="archivo"><br><br>
                 <input type="submit" value="Enviar"/>
                 <div class="link-centrado" id="mensaje"></div>
             </form>
+            
             <div class="link-centrado">
                 <a href="empleados_lista.php">Regresar al listado</a>
             </div>
