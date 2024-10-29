@@ -4,6 +4,7 @@
     $con    = conecta();
     $correo     = $_REQUEST['correo'];
     $id    = $_REQUEST['id'];
+    $correo = trim($correo);
 
     if ($id != -1) {
         $sql = "SELECT COUNT(*) FROM empleados WHERE correo = '$correo' AND id != $id";

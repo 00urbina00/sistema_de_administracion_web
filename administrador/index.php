@@ -1,8 +1,10 @@
 <?php
+    // Si la sesión está iniciada, redirigir a bienvenido.php
     session_start();
-    if (isset($_SESSION['usuario'])) {
+    if (isset($_SESSION['id'])) {
         header('Location: bienvenido.php');
     }
+?>
 <!DOCTYPE html>
     <head>
         <title>Login</title>
