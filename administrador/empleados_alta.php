@@ -1,5 +1,30 @@
+<?php 
+    session_start();
+?>
 <html>
     <head>
+        <style>
+            .boton_regresar {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            .boton_regresar a {
+                margin-right: 15px;
+                text-decoration: none;
+                padding: 10px 15px;
+                background-color: #026778;
+                color: #FFFFFF;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+            .boton_regresar a:hover {
+                background-color: #034854;
+            }
+            .detalle-contenedor {
+                margin-top: 20px;
+            }
+        </style>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/jquery.js"></script>
         <script>
@@ -19,7 +44,7 @@
                             console.log(res);
                             if (res == 1) {
                                 $('#correoError').show();
-                                $('#correoError').html('El correo '+correo + ' ya existe.');
+                                $('#correoError').html('El correo '+ correo + ' ya existe.');
                                 setTimeout(function() {
                                     $('#correoError').html('');
                                     $('#correoError').hide();
@@ -75,8 +100,10 @@
         <title>Alta de empleados</title>
     </head>
     <body>
-        <h1>Alta de empleados</h1> 
-        <div text-align="center">
+        <!-- Incluir el menú -->
+        <?php include 'menu_navegacion.php'; ?>
+        <div class="detalle-contenedor">
+            <h1 style="margin-bottom: 30px;">Alta de empleados</h1> 
             <!-- Formulario -->
             <form name="user" id="formulario" enctype="multipart/form-data" method="post" action="empleados_registra.php" onsubmit="validarFormulario(event);">
                 <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> 
@@ -91,13 +118,15 @@
                     <option value="1">Gerente</option>
                     <option value="2">Ejecutivo</option>
                 </select>
-                <input type="file" id="archivo" name="archivo"><br><br>
+                <div class="archivo-contenedor">
+                    <input type="file" id="archivo" name="archivo">
+                </div>
                 <input type="submit" value="Enviar"/>
                 <div class="link-centrado" id="mensaje"></div>
             </form>
             
-            <div class="link-centrado">
-                <a href="empleados_lista.php">Regresar al listado</a>
+            <div class="boton_regresar">
+                <a href="empleados_lista.php">Regresar</a>
             </div>
         </div>
     </body>

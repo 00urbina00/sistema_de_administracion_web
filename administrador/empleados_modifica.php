@@ -1,5 +1,30 @@
+<?php 
+    session_start();
+?>
 <html>
     <head>
+    <style>
+            .boton_regresar {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            .boton_regresar a {
+                margin-right: 15px;
+                text-decoration: none;
+                padding: 10px 15px;
+                background-color: #026778;
+                color: #FFFFFF;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+            .boton_regresar a:hover {
+                background-color: #034854;
+            }
+            .detalle-contenedor {
+                margin-top: 20px;
+            }
+        </style>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/jquery.js"></script>
         <script>
@@ -72,8 +97,10 @@
         <title>Edición de empleados</title>
     </head>
     <body>
-        <h1>Edición de empleados</h1> 
-        <div text-align="center">
+        <!-- Incluir el menú -->
+        <?php include 'menu_navegacion.php'; ?>
+        <div class="detalle-contenedor">
+            <h1 style="margin-bottom: 30px;">Edición de empleados</h1> 
             <!-- Formulario -->
             <?php
                 // Obtener los datos desde la URL usando GET
@@ -98,12 +125,14 @@
                     <option value="1" <?php if ($tmp_rol == 1) echo 'selected'; ?>>Gerente</option>
                     <option value="2" <?php if ($tmp_rol == 2) echo 'selected'; ?>>Ejecutivo</option>
                 </select>
-                <input type="file" id="archivo" name="archivo"><br><br>
+                <div class="archivo-contenedor">
+                    <input type="file" id="archivo" name="archivo">
+                </div>
                 <input type="submit" value="Enviar"/>
                 <div class="link-centrado" id="mensaje"></div>
             </form>
-            <div class="link-centrado">
-                <a href="empleados_lista.php">Regresar al listado</a>
+            <div class="boton_regresar">
+                <a href="empleados_lista.php">Regresar</a>
             </div>
         </div>
     </body>

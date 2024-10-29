@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+    
     require "funciones/conecta.php";
     $con = conecta();
     $sql = "SELECT * FROM empleados WHERE eliminado = 0";
@@ -33,6 +35,24 @@
 
             .fila .boton_accion-editar:hover {
                 background-color: #d4c45a; 
+            }
+            .detalle-contenedor {
+                max-width: 100%; /* Ajusta el ancho máximo al 40% de la pantalla */
+                max-height: 100%; /* Limita la altura al 80% de la vista */
+                height: auto; /* Se ajusta automáticamente */
+                margin: 0 auto;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                overflow-y: auto; /* Añade scroll interno si el contenido sobrepasa la altura */
+                margin-top: 20px;   /* Espacio entre el contenedor y el título */
+                text-align: center;
+            }
+
+            /* Centrar título y reducir márgenes */
+            .detalle-contenedor h2 {
+                font-size: 20px;
+                margin-bottom: 10px;
+                color: #084853;
+                text-align: center;
             }
         </style>
         <script src="js/jquery.js"></script>
@@ -121,50 +141,52 @@
             </script>
     </head>
     <body>
-
-        <h1>Listado de empleados (<?php echo $num; ?>)</h1>
-
-        <div class="botones">
-            <a href="empleados_alta.php">Dar de alta</a>
-        </div>
-
-        <div class="tabla">
-            <div class="fila fila_header">
-                <div class="columna">ID</div>
-                <div class="columna">Nombre</div>
-                <div class="columna">Apellidos</div>
-                <div class="columna">Correo</div>
-                <div class="columna">Rol</div>
-                <div class="columna">Ver detalle</div>
-                <div class="columna">Editar</div>
-                <div class="columna">Eliminar</div>
+        <!-- Incluir el menú -->
+        <?php include 'menu_navegacion.php'; ?>
+        <div class="detalle-contenedor">
+            <h1 style="margin-bottom: 40px;">Listado de empleados (<?php echo $num; ?>)</h1>
+            <div class="botones">
+                <a href="empleados_alta.php">Dar de alta</a>
             </div>
-            <?php 
-            while($row = $res->fetch_array()){
-                $id = $row["id"];
-                $nombre = $row["nombre"];
-                $apellidos = $row["apellidos"];
-                $correo = $row["correo"];
-                $rol = $row["rol"] == 1 ? "Gerente" : "Ejecutivo";
-                $void = "";
-                echo "<div class='fila'>
-                        <div class='columna'>$id</div>
-                        <div class='columna'>$nombre</div>
-                        <div class='columna'>$apellidos</div>
-                        <div class='columna'>$correo</div>
-                        <div class='columna'>$rol</div>
-                        <div class='columna'>
-                            <button class='boton_accion-detalles' onclick='ver_detalle($id)'>Ver detalle</button>
-                        </div>
-                        <div class='columna'>
-                            <button class='boton_accion-editar' onclick='edita_empleado($id)'>Editar</button>
-                        </div>
-                        <div class='columna'>
-                            <button class='boton_accion' onclick='elimina_empleado($id, this)'>Eliminar</button>
-                        </div>
-                    </div>";
-            }
-            ?>
+
+            <div class="tabla">
+                <div class="fila fila_header">
+                    <div class="columna" style="text-align: center;">ID</div>
+                    <div class="columna" style="text-align: center;">Nombre</div>
+                    <div class="columna" style="text-align: center;">Apellidos</div>
+                    <div class="columna" style="text-align: center;">Correo</div>
+                    <div class="columna" style="text-align: center;">Rol</div>
+                    <div class="columna" style="text-align: center;">Ver detalle</div>
+                    <div class="columna" style="text-align: center;">Editar</div>
+                    <div class="columna" style="text-align: center;">Eliminar</div>
+                </div>
+                <?php 
+                while($row = $res->fetch_array()){
+                    $id = $row["id"];
+                    $nombre = $row["nombre"];
+                    $apellidos = $row["apellidos"];
+                    $correo = $row["correo"];
+                    $rol = $row["rol"] == 1 ? "Gerente" : "Ejecutivo";
+                    $void = "";
+                    echo "<div class='fila'>
+                            <div class='columna' style=\"text-align: center;\">$id</div>
+                            <div class='columna' style=\"text-align: center;\">$nombre</div>
+                            <div class='columna' style=\"text-align: center;\">$apellidos</div>
+                            <div class='columna' style=\"text-align: center;\">$correo</div>
+                            <div class='columna' style=\"text-align: center;\">$rol</div>
+                            <div class='columna' style=\"text-align: center;\">
+                                <button class='boton_accion-detalles' onclick='ver_detalle($id)'>Ver detalle</button>
+                            </div>
+                            <div class='columna' style=\"text-align: center;\">
+                                <button class='boton_accion-editar' onclick='edita_empleado($id)'>Editar</button>
+                            </div>
+                            <div class='columna' style=\"text-align: center;\">
+                                <button class='boton_accion' onclick='elimina_empleado($id, this)'>Eliminar</button>
+                            </div>
+                        </div>";
+                }
+                ?>
+            </div>
         </div>
     </body>
 </html>

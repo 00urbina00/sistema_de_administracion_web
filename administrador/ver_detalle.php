@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,15 +10,24 @@
             .botones {
                 display: flex;
                 justify-content: center;
-                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .botones a {
+                background-color: #026778;
+                transition: background-color 0.3s;
+            }
+
+            .botones a:hover {
+                background-color: #034854;
             }
         </style>
     </head>
     <body>
-
-        <h1>Detalle del empleado</h1>
+        <!-- Incluir el menú -->
+        <?php include 'menu_navegacion.php'; ?>
 
         <div class="detalle-contenedor">
+            <h1>Detalle del empleado</h1>
             <?php
             // Obtener los datos desde la URL usando GET
             $nombre = $_GET['nombre'];
@@ -28,12 +40,13 @@
                 $foto = 'default.jpg';
             }
             ?>
-
             <div class="detalle-empleado">
                 <img src="archivos/<?php echo $foto; ?>" alt="Foto de perfil" class="foto-perfil">
                 <h2><?php echo $nombre . " " . $apellidos; ?></h2>
             </div>
-
+            <div class="botones">
+                <a href="empleados_lista.php">Regresar</a>
+            </div>
             <div class="tabla-detalle">
                 <div class="fila-detalle">
                     <div class="columna-titulo">Nombre</div>
@@ -52,11 +65,6 @@
                     <div class="columna-valor"><?php echo $rol; ?></div>
                 </div>
             </div>
-
-            <div class="botones">
-                <a href="empleados_lista.php">Volver al listado</a>
-            </div>
         </div>
-
     </body>
 </html>
