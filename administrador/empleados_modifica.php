@@ -3,10 +3,9 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/jquery.js"></script>
         <script>
-            function valida_correo() {
+            function valida_correo(id) {
                 return new Promise((resolve, reject) => {
                     var correo = document.user.correo.value;
-                    var id = -1; // No modificar los campos
                     $.ajax({
                         url: 'existe_correo.php',
                         type: 'post',
@@ -37,7 +36,7 @@
                     });
                 });
             }
-            async function validarFormulario(event) {
+            async function validarFormulario(event, id) {
                 // Funcion de javascript
                 event.preventDefault();
 
@@ -48,7 +47,7 @@
                 var rol = document.user.rol.value;
 
                 // Validar campos vacíos
-                if (nombre === "" || apellidos === "" || correo === "" || pass === "" || rol === "0") {
+                if (nombre === "" || apellidos === "" || correo === "" || rol === "0") {
                     $('#mensaje').show();
                     $('#mensaje').html('Faltan campos por llenar');
                     setTimeout(function() {
@@ -59,35 +58,45 @@
                 }
 
                 // Validar correo con AJAX
-                const correoValido = await valida_correo();
+                const correoValido = await valida_correo(id);
                 if (!correoValido) {
                     return false; // No enviar formulario si el correo ya existe
                 }
 
                 // Enviar formulario
                 document.user.method = 'post';
-                document.user.action = 'empleados_salva.php';
+                document.user.action = 'empleados_actualiza.php';
                 document.user.submit();
             }
         </script>
-        <title>Alta de empleados</title>
+        <title>Edición de empleados</title>
     </head>
     <body>
-        <h1>Alta de empleados</h1> 
+        <h1>Edición de empleados</h1> 
         <div text-align="center">
             <!-- Formulario -->
-            <form name="user" id="formulario" onsubmit="validarFormulario(event);">
-                <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> 
-                <input type="text" name="apellidos" id="last_name" placeholder="Escribe tu apellido"/> 
+            <?php
+                // Obtener los datos desde la URL usando GET
+                $id = $_GET['id'];
+                $nombre = $_GET['nombre'];
+                $apellidos = $_GET['apellidos'];
+                $correo = $_GET['correo'];
+                $tmp_rol = $_GET['rol'];
+                $rol = ($tmp_rol == 1) ? 'Gerente' : 'Ejecutivo';
+            ?>
+            <form name="user" id="formulario" onsubmit="validarFormulario(event, <?php echo $id; ?>);">
+                <input type="hidden" name="id" value="<?php echo $id; ?>"> <!-- Campo oculto para enviar el id también -->
+                <input type="text" name="nombre" id="name" value="<?php echo $nombre; ?>"/> 
+                <input type="text" name="apellidos" id="last_name" value="<?php echo $apellidos; ?>"/> 
                 <div style="position: relative;">
-                    <input onblur="valida_correo();" type="text" name="correo" id="mail" value="@udg.mx"/> 
+                    <input onblur="valida_correo(<?php echo $id; ?>);" type="text" name="correo" id="mail" value="<?php echo $correo; ?>"/> 
                     <div style="color: red; display: none;" id="correoError"></div> <!-- Contenedor para el mensaje de error -->
                 </div>
                 <input type="password" name="pass" id="pass" placeholder="Escribe tu password"/> 
                 <select name="rol" id="rol">
                     <option value="0">Seleccionar</option>
-                    <option value="1">Gerente</option>
-                    <option value="2">Ejecutivo</option>
+                    <option value="1" <?php if ($tmp_rol == 1) echo 'selected'; ?>>Gerente</option>
+                    <option value="2" <?php if ($tmp_rol == 2) echo 'selected'; ?>>Ejecutivo</option>
                 </select>
                 <input type="submit" value="Enviar"/>
                 <div class="link-centrado" id="mensaje"></div>

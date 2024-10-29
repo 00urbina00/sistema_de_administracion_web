@@ -22,6 +22,18 @@
             .fila .boton_accion-detalles:hover {
                 background-color: #218a39; 
             }
+            .fila .boton_accion-editar {
+                padding: 5px 10px;
+                background-color: #e3c70b;
+                color: #FFFFFF;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .fila .boton_accion-editar:hover {
+                background-color: #d4c45a; 
+            }
         </style>
         <script src="js/jquery.js"></script>
             <script>
@@ -48,7 +60,7 @@
                 }
                 function ver_detalle(id){
                     $.ajax({
-                        url     :'detalle_empleado.php',
+                        url     :'consulta_empleado.php',
                         type    :'post',
                         dataType:'json',
                         data    : { 'id': id }, 
@@ -66,6 +78,36 @@
                                                     '&apellidos=' + res.apellidos +
                                                     '&correo=' + res.correo + 
                                                     '&rol=' + res.rol;
+                            }
+                        },  
+                        error: function() {
+                            alert('Error archivo no encontrado...');
+                        }
+                    });
+
+                }
+                function edita_empleado(id){
+                    $.ajax({
+                        url     :'consulta_empleado.php',
+                        type    :'post',
+                        dataType:'json',
+                        data    : { 'id': id }, 
+                        success : function(res) {
+                            console.log(res);
+                            if (res.error) {
+                                $('#mensaje').show();
+                                $('#mensaje').html(res.error);
+                                setTimeout(function() {
+                                    $('#mensaje').html('');
+                                    $('#mensaje').hide();
+                                }, 5000);
+                            } else {
+                                // Redirigimos a la página de edición, pasando la información por la URL
+                                window.location.href = 'empleados_modifica.php?id=' + encodeURIComponent(id) + 
+                                                        '&nombre=' + encodeURIComponent(res.nombre) +
+                                                        '&apellidos=' + encodeURIComponent(res.apellidos) +
+                                                        '&correo=' + encodeURIComponent(res.correo) + 
+                                                        '&rol=' + encodeURIComponent(res.rol);
                             }
                         },  
                         error: function() {
@@ -112,7 +154,9 @@
                         <div class='columna'>
                             <button class='boton_accion-detalles' onclick='ver_detalle($id)'>Ver detalle</button>
                         </div>
-                        <div class='columna'>$void</div>
+                        <div class='columna'>
+                            <button class='boton_accion-editar' onclick='edita_empleado($id)'>Editar</button>
+                        </div>
                         <div class='columna'>
                             <button class='boton_accion' onclick='elimina_empleado($id)'>Eliminar</button>
                         </div>
