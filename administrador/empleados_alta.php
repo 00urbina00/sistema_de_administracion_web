@@ -6,15 +6,11 @@
             function valida_correo() {
                 return new Promise((resolve, reject) => {
                     var correo = document.user.correo.value;
-                    var id = -1; // No modificar los campos
                     $.ajax({
                         url: 'existe_correo.php',
                         type: 'post',
                         dataType: 'text',
-                        data: {
-                            correo: correo,
-                            id: id
-                        },
+                        data: 'correo=' + correo,
                         success: function(res) {
                             console.log(res);
                             if (res == 1) {
@@ -42,15 +38,13 @@
                 event.preventDefault();
 
                 var nombre = document.user.nombre.value.trim();
-                var apellidos = document.user.apellidos.value.trim();
+                var apellido = document.user.apellido.value.trim();
                 var correo = document.user.correo.value.trim();
                 var pass = document.user.pass.value.trim();
                 var rol = document.user.rol.value;
 
-                var archivo = document.user.archivo.files[0];
-
                 // Validar campos vacíos
-                if (nombre === "" || apellidos === "" || correo === "" || pass === "" || rol === "0" || archivo === undefined) {
+                if (nombre === "" || apellido === "" || correo === "" || pass === "" || rol === "0") {
                     $('#mensaje').show();
                     $('#mensaje').html('Faltan campos por llenar');
                     setTimeout(function() {
@@ -72,15 +66,15 @@
                 document.user.submit();
             }
         </script>
-        <title>Alta de empleados</title>
+        <title>Formulario</title>
     </head>
     <body>
         <h1>Alta de empleados</h1> 
         <div text-align="center">
             <!-- Formulario -->
-            <form name="user" id="formulario" enctype="multipart/form-data" method="post" action="empleados_registra.php" onsubmit="validarFormulario(event);">
+            <form name="user" id="formulario" onsubmit="validarFormulario(event);">
                 <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> 
-                <input type="text" name="apellidos" id="last_name" placeholder="Escribe tu apellido"/> 
+                <input type="text" name="apellido" id="last_name" placeholder="Escribe tu apellido"/> 
                 <div style="position: relative;">
                     <input onblur="valida_correo();" type="text" name="correo" id="mail" value="@udg.mx"/> 
                     <div style="color: red; display: none;" id="correoError"></div> <!-- Contenedor para el mensaje de error -->
@@ -91,11 +85,9 @@
                     <option value="1">Gerente</option>
                     <option value="2">Ejecutivo</option>
                 </select>
-                <input type="file" id="archivo" name="archivo"><br><br>
                 <input type="submit" value="Enviar"/>
                 <div class="link-centrado" id="mensaje"></div>
             </form>
-            
             <div class="link-centrado">
                 <a href="empleados_lista.php">Regresar al listado</a>
             </div>
