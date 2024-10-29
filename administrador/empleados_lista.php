@@ -9,6 +9,20 @@
     <head>
         <title>Listado de Empleados</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <style>
+            .fila .boton_accion-detalles {
+                padding: 5px 10px;
+                background-color: #28a745;
+                color: #FFFFFF;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .fila .boton_accion-detalles:hover {
+                background-color: #218a39; 
+            }
+        </style>
         <script src="js/jquery.js"></script>
             <script>
                 function elimina_empleado($id){
@@ -22,7 +36,6 @@
                             console.log(res);
                             if(res == 1){
                                 alert('Empleado eliminado correctamente!');
-                                location.reload();
                             }else{
                                 alert('Error al eliminar empleado.');
                             }
@@ -32,6 +45,34 @@
                         }
                     });
                         
+                }
+                function ver_detalle(id){
+                    $.ajax({
+                        url     :'detalle_empleado.php',
+                        type    :'post',
+                        dataType:'json',
+                        data    : { 'id': id }, 
+                        success : function(res) {
+                            if (res.error) {
+                                $('#mensaje').show();
+                                $('#mensaje').html(res.error);
+                                setTimeout(function() {
+                                    $('#mensaje').html('');
+                                    $('#mensaje').hide();
+                                }, 5000);
+                            } else {
+                                // Redirigimos a la página de detalles, pasando la información por la URL
+                                window.location.href = 'ver_detalle.php?nombre=' + res.nombre + 
+                                                    '&apellidos=' + res.apellidos +
+                                                    '&correo=' + res.correo + 
+                                                    '&rol=' + res.rol;
+                            }
+                        },  
+                        error: function() {
+                            alert('Error archivo no encontrado...');
+                        }
+                    });
+
                 }
             </script>
     </head>
@@ -68,7 +109,9 @@
                         <div class='columna'>$apellidos</div>
                         <div class='columna'>$correo</div>
                         <div class='columna'>$rol</div>
-                        <div class='columna'>$void</div>
+                        <div class='columna'>
+                            <button class='boton_accion-detalles' onclick='ver_detalle($id)'>Ver detalle</button>
+                        </div>
                         <div class='columna'>$void</div>
                         <div class='columna'>
                             <button class='boton_accion' onclick='elimina_empleado($id)'>Eliminar</button>
