@@ -8,7 +8,6 @@
     $pass       = $_REQUEST['pass'];
     $rol        = $_REQUEST['rol'];
 
-    // 
     $passEnc    = md5($pass);
     $archivo_n  = '';
     $archivo    = '';

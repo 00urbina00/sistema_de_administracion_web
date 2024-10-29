@@ -6,15 +6,8 @@
                 font-size: 16px;
             }
         </style>
+        <script src="js/jquery.js"></script>
         <script>
-            function miAlerta(nombre, apellido, calificacion){
-                alert('Bienvenido ' + nombre + " " + apellido + "!\n" + "tu calificación es: "+ calificacion);
-            }
-            function enviar(){
-                var correo = document.user.correo.value;
-                alert(correo);
-            }
-
             function validarFormulario() {
                 var nombre = document.user.nombre.value;
                 var apellido = document.user.apellido.value;
@@ -31,10 +24,14 @@
                 }
             }
             function sale(){
-                alert("Sale del campo");
+                // Mostrar mensaje con jQuery cuando el usuario sale de un campo
                 $('#mensaje').show();
                 $('#mensaje').html('Sale del campo');
-                setTimeout("$('#mensaje').html('');", 1500);
+
+                // Limpiar el mensaje después de 1.5 segundos
+                setTimeout(function() {
+                    $('#mensaje').html('');
+                }, 1500);
             }
         </script>
         <title>Formulario</title>
