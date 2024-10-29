@@ -3,8 +3,13 @@
     require "funciones/conecta.php";
     $con    = conecta();
     $correo     = $_REQUEST['correo'];
+    $id    = $_REQUEST['id'];
 
-    $sql = "SELECT COUNT(*) FROM empleados WHERE correo = '$correo'";
+    if ($id != -1) {
+        $sql = "SELECT COUNT(*) FROM empleados WHERE correo = '$correo' AND id != $id";
+    } else {
+        $sql = "SELECT COUNT(*) FROM empleados WHERE correo = '$correo'";
+    }
 
     $res = $con->query($sql);
 

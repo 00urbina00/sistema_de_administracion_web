@@ -1,5 +1,6 @@
 <?php
     // Script de PHP 
+    session_start();    // Iniciar la sesión
     require "funciones/conecta.php";
     $con        = conecta();
     $usuario     = $_REQUEST['usuario'];
@@ -14,6 +15,10 @@
         $fila = $res->fetch_assoc();
 
         if ($fila['pass'] == $passEnc ) {    // La contraseña es correcta
+            // Crear la sesión y las variables de sesión
+            $_SESSION['id'] = $fila['id'];
+            $_SESSION['nombre'] = $fila['nombre']." ".$fila['apellidos'];
+            $_SESSION['correo'] = $fila['correo'];
             echo 1;
         } else {                            // La contraseña es incorrecta
             echo 0;
