@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
     <head>
-        <title>Detalles del Empleado</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css?v=<?php echo time(); ?>">
+        <title>Detalles del producto</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <style>
             .botones {
                 display: flex;
@@ -28,16 +28,17 @@
     <body>
         <!-- Incluir el menú -->
         <?php include 'menu_navegacion.php'; ?>
-
         <div class="detalle-contenedor">
-            <h1>Detalle del empleado</h1>
+            <h1>Detalle del producto</h1>
             <?php
             // Obtener los datos desde la URL usando GET
-            $nombre = $_GET['nombre'];
-            $apellidos = $_GET['apellidos'];
-            $correo = $_GET['correo'];
-            $tmp_rol = $_GET['rol'];
-            $rol = ($tmp_rol == 1) ? 'Gerente' : 'Ejecutivo';
+            $id = $_GET["id"];
+            $nombre = $_GET["nombre"];
+            $codigo = $_GET["codigo"];
+            $descripcion = $_GET["descripcion"];
+            $costo = $_GET["costo"];
+            $stock = $_GET["stock"];
+
             $foto = $_GET['archivo'];
             if ($foto == '') {
                 $foto = 'default.jpg';
@@ -45,10 +46,10 @@
             ?>
             <div class="detalle-empleado">
                 <img src="archivos/<?php echo $foto; ?>" alt="Foto de perfil" class="foto-perfil">
-                <h2><?php echo $nombre . " " . $apellidos; ?></h2>
+                <h2><?php echo $nombre?></h2>
             </div>
             <div class="botones">
-                <a href="empleados_lista.php">Regresar</a>
+                <a href="productos_lista.php">Regresar</a>
             </div>
             <div class="tabla-detalle">
                 <div class="fila-detalle">
@@ -56,16 +57,20 @@
                     <div class="columna-valor"><?php echo $nombre; ?></div>
                 </div>
                 <div class="fila-detalle">
-                    <div class="columna-titulo">Apellidos</div>
-                    <div class="columna-valor"><?php echo $apellidos; ?></div>
+                    <div class="columna-titulo">Código</div>
+                    <div class="columna-valor"><?php echo $codigo; ?></div>
                 </div>
                 <div class="fila-detalle">
-                    <div class="columna-titulo">Correo</div>
-                    <div class="columna-valor"><?php echo $correo; ?></div>
+                    <div class="columna-titulo">Descripción</div>
+                    <div class="columna-valor"><?php echo $descripcion; ?></div>
                 </div>
                 <div class="fila-detalle">
-                    <div class="columna-titulo">Rol</div>
-                    <div class="columna-valor"><?php echo $rol; ?></div>
+                    <div class="columna-titulo">Costo</div>
+                    <div class="columna-valor">$<?php echo $costo; ?></div>
+                </div>
+                <div class="fila-detalle">
+                    <div class="columna-titulo">Existencias</div>
+                    <div class="columna-valor"><?php echo $stock; ?></div>
                 </div>
             </div>
         </div>

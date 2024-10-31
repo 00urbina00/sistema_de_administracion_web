@@ -4,7 +4,7 @@
         header('Location: index.php');
     }
 ?>
-<html>
+<!DOCTYPE html>
     <head>
     <style>
             .boton_regresar {

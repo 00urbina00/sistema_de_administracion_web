@@ -6,6 +6,7 @@ h1 {
 
 body {
     margin: 20px;
+    font-family: 'Helvetica', sans-serif; /* Cambia 'Arial' por la fuente que desees */
 }
 
 .cerrar_sesion {
@@ -95,7 +96,7 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"], input[type="password"], select {
+input[type="text"], input[type="password"], select, textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0 20px 0;
@@ -104,9 +105,10 @@ input[type="text"], input[type="password"], select {
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
+    font-family: 'Helvetica', sans-serif;
 }
 
-input[type="submit"] {
+input[type="submit"]  {
     background-color: #007bff;
     color: #ffffff;
     padding: 10px 20px;

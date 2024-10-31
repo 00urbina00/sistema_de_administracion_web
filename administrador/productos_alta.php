@@ -31,31 +31,31 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/jquery.js"></script>
         <script>
-            function valida_correo() {
+            function valida_codigo() {
                 return new Promise((resolve, reject) => {
-                    var correo = document.user.correo.value;
+                    var codigo = document.productos.codigo.value;
                     var id = -1; // No modificar los campos
                     $.ajax({
-                        url: 'existe_correo.php',
+                        url: 'existe_codigo.php',
                         type: 'post',
                         dataType: 'text',
                         data: {
-                            correo: correo,
+                            codigo: codigo,
                             id: id
                         },
                         success: function(res) {
                             console.log(res);
                             if (res == 1) {
                                 $('#correoError').show();
-                                $('#correoError').html('El correo '+ correo + ' ya existe.');
+                                $('#correoError').html('El codigo '+ codigo + ' ya existe.');
                                 setTimeout(function() {
                                     $('#correoError').html('');
                                     $('#correoError').hide();
                                 }, 5000);
-                                resolve(false); // El correo ya existe
+                                resolve(false); // El codigo ya existe
                             } else {
                                 $('#correoError').hide();
-                                resolve(true); // El correo no existe
+                                resolve(true); // El codigo no existe
                             }
                         },
                         error: function() {
@@ -69,16 +69,16 @@
                 // Funcion de javascript
                 event.preventDefault();
 
-                var nombre = document.user.nombre.value.trim();
-                var apellidos = document.user.apellidos.value.trim();
-                var correo = document.user.correo.value.trim();
-                var pass = document.user.pass.value.trim();
-                var rol = document.user.rol.value;
+                var nombre = document.productos.nombre.value.trim();
+                var codigo = document.productos.codigo.value.trim();
+                var descripcion = document.productos.descripcion.value.trim();
+                var costo = document.productos.costo.value.trim();
+                var stock = document.productos.stock.value.trim();
 
-                var archivo = document.user.archivo.files[0];
+                var archivo = document.productos.archivo.files[0];
 
                 // Validar campos vacíos
-                if (nombre === "" || apellidos === "" || correo === "" || pass === "" || rol === "0" || archivo === undefined) {
+                if (nombre === "" || codigo === "" || descripcion === "" || costo === "" || stock === "" || archivo === undefined) {
                     $('#mensaje').show();
                     $('#mensaje').html('Faltan campos por llenar');
                     setTimeout(function() {
@@ -89,38 +89,35 @@
                 }
 
                 // Validar correo con AJAX
-                const correoValido = await valida_correo();
-                if (!correoValido) {
+                const codigoValido = await valida_codigo();
+                if (!codigoValido) {
                     return false; // No enviar formulario si el correo ya existe
                 }
 
                 // Enviar formulario
-                document.user.method = 'post';
-                document.user.action = 'empleados_salva.php';
-                document.user.submit();
+                document.productos.method = 'post';
+                document.productos.action = 'productos_salva.php';
+                document.productos.submit();
             }
         </script>
-        <title>Alta de empleados</title>
+        <title>Alta de productos</title>
     </head>
     <body>
         <!-- Incluir el menú -->
         <?php include 'menu_navegacion.php'; ?>
         <div class="detalle-contenedor">
-            <h1 style="margin-bottom: 30px;">Alta de empleados</h1> 
+            <h1 style="margin-bottom: 30px;">Alta de productos</h1> 
             <!-- Formulario -->
-            <form name="user" id="formulario" enctype="multipart/form-data" method="post" action="empleados_registra.php" onsubmit="validarFormulario(event);">
-                <input type="text" name="nombre" id="name" placeholder="Escribe tu nombre"/> 
-                <input type="text" name="apellidos" id="last_name" placeholder="Escribe tu apellido"/> 
+            <form name="productos" id="formulario" enctype="multipart/form-data" method="post" action="empleados_registra.php" onsubmit="validarFormulario(event);">
+                <input type="text" name="nombre" id="name" placeholder="Escribe el nombre del producto" autocomplete="on"/> 
                 <div style="position: relative;">
-                    <input onblur="valida_correo();" type="text" name="correo" id="mail" value="@udg.mx"/> 
+                    <input onblur="valida_codigo();" type="text" name="codigo" id="codigo" placeholder="Escribe el código del producto"/> 
                     <div style="color: red; display: none;" id="correoError"></div> <!-- Contenedor para el mensaje de error -->
                 </div>
-                <input type="password" name="pass" id="pass" placeholder="Escribe tu password"/> 
-                <select name="rol" id="rol">
-                    <option value="0">Seleccionar</option>
-                    <option value="1">Gerente</option>
-                    <option value="2">Ejecutivo</option>
-                </select>
+                <textarea name="descripcion" id="descripcion" class="large-textarea"placeholder="Agrega una descripción al producto" autocomplete="off"></textarea>
+                <!-- input type="text" name="descripcion" id="descripcion" placeholder="Agrega una descripción al producto"/ --> 
+                <input type="text" name="costo" id="costo" placeholder="Escribe el costo del producto"/>
+                <input type="text" name="stock" id="stock" placeholder="Existencia del producto"/>
                 <div class="archivo-contenedor">
                     <input type="file" id="archivo" name="archivo">
                 </div>
@@ -129,7 +126,7 @@
             </form>
             
             <div class="boton_regresar">
-                <a href="empleados_lista.php">Regresar</a>
+                <a href="productos_lista.php">Regresar</a>
             </div>
         </div>
     </body>
