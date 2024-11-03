@@ -156,7 +156,7 @@
                 <div class="fila fila_header">
                     <div class="columna" style="text-align: center;">ID</div>
                     <div class="columna" style="text-align: center;">Nombre</div>
-                    <div class="columna" style="text-align: center;">Descripción</div>
+                    <div class="columna" style="text-align: center;">Código</div>
                     <div class="columna" style="text-align: center;">Costo</div>
                     <div class="columna" style="text-align: center;">stock</div>
                     <div class="columna" style="text-align: center;">Ver detalle</div>
@@ -167,13 +167,13 @@
                 while($row = $res->fetch_array()){
                     $id = $row["id"];
                     $nombre = $row["nombre"];
-                    $descripcion = $row["descripcion"];
+                    $codigo = $row["codigo"];
                     $costo = $row["costo"];
                     $stock = $row["stock"];
                     echo "<div class='fila'>
                             <div class='columna' style=\"text-align: center;\">$id</div>
                             <div class='columna' style=\"text-align: center;\">$nombre</div>
-                            <div class='columna' style=\"text-align: center;\">$descripcion</div>
+                            <div class='columna' style=\"text-align: center;\">$codigo</div>
                             <div class='columna' style=\"text-align: center;\">\$$costo</div>
                             <div class='columna' style=\"text-align: center;\">$stock</div>
                             <div class='columna' style=\"text-align: center;\">
