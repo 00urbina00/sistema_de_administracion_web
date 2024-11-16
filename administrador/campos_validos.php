@@ -16,7 +16,7 @@
 
         if ($fila['pass'] == $passEnc ) {    // La contraseña es correcta
             // Crear la sesión y las variables de sesión
-            $_SESSION['id'] = $fila['id'];
+            $_SESSION['id_empleado'] = $fila['id'];
             $_SESSION['nombre'] = $fila['nombre']." ".$fila['apellidos'];
             $_SESSION['correo'] = $fila['correo'];
             echo 1;

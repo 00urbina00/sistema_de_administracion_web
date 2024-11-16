@@ -1,14 +1,20 @@
 <!-- menu.php -->
-<div class="detalle-contenedor" style="width: 100%; margin-top: 10px; padding: 10px; max-width: 100%;">
-    <table border="1" width="100%" style="margin: 0 auto; background-color: #084853">
-        <tr height="30">
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="bienvenido.php" style="text-decoration: none; color: #FFFFFF">Inicio</a></td>
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="empleados_lista.php" style="text-decoration: none; color: #FFFFFF">Empleados</a></td>
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="productos_lista.php" style="text-decoration: none; color: #FFFFFF">Productos</a></td>
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="promociones_lista.php" style="text-decoration: none; color: #FFFFFF">Promociones</a></td>
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="pedidos.php" style="text-decoration: none; color: #FFFFFF">Pedidos</a></td>
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="bienvenido.php" style="text-decoration: none; color: #FFFFFF">Bienvenido <?php echo $_SESSION['nombre']; ?></a></td>
-            <td colspan="2" align="center" style="font-size: 20px;"><a href="cerrar_sesion.php" style="text-decoration: none; color: #FFFFFF">Cerrar sesión</a></td>
-        </tr>
-    </table>
-</div>
+<div class="logo">LOGO</div>
+<nav>
+    <a href="index.php">Home</a>
+    <a href="productos.php">Productos</a>
+    <a href="contacto.php">Contacto</a>
+
+    <?php if (isset($_SESSION['id_cliente'])): ?>
+        <?php
+            if (!isset($_SESSION['productCount'])) {
+                $_SESSION['productCount'] = 0;
+            }
+        ?>
+        <a href="carrito_1.php">Carrito(<span id="productCount"><?php echo $_SESSION['productCount']; ?></span>)</a>
+        <a href="#"><?php echo htmlspecialchars($_SESSION['nombre']); ?></a>
+        <a href="cerrar_sesion.php">Cerrar sesión</a>
+    <?php else: ?>
+        <a href="iniciar_sesion.php">Iniciar sesión</a>
+    <?php endif; ?>
+</nav>

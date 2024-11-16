@@ -1,14 +1,17 @@
-body {
+body, html {
     font-family: Arial, sans-serif;
+    height: 100%;
     margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+
 }
 
 header {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
-    background-color: #333;
+    padding: 10px;
+    background-color: #084853;
     color: #fff;
 }
 
@@ -24,39 +27,466 @@ header nav a {
 
 .banner {
     text-align: center;
-    padding: 50px;
+    padding: 10px;
     background-color: #eee;
+
+}
+
+.banner_box{
+    max-width: 800px;
+    height: 200px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #ccc;
+}
+
+.banner_img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .productos {
-    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: flex-start;    
 }
 
 .productos h2 {
+    font-size: 1.2em;
     text-align: center;
 }
 
 .tabla-productos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
+    gap: 10px;
+    padding: 10px;
 }
 
 .producto {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    max-width: 100%;
+    max-height: 300px;
+    font-size: 0.9em;
+}
+
+.producto img {
+    width: 100%;
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.producto p, .producto h3 {
+    margin: 5px 0;
+}
+
+.paginacion {
+    margin-top: auto;
+    text-align: center;
+    margin: 20px 0;
+    
+}
+
+.paginacion a, .paginacion .pagina-actual {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #084853;
+    border-radius: 5px;
+}
+
+.paginacion .pagina-actual {
+    background-color: #084853;
+    color: #fff;
+}
+
+.paginacion a:hover {
+    background-color: #084853;
+    color: #fff;
+}
+
+.contenedor-productos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 10px;
+    height: 100%;
 }
 
 footer {
-    background-color: #333;
+    max-height: 50px;
+    background-color: #084853;
     color: #fff;
     text-align: center;
     padding: 10px;
 }
+
 footer a {
+    max-height: 50px;
     color: #fff;
     text-decoration: none;
     margin: 0 5px;
+}
+
+.detalle-producto {
+    max-width: 600px;
+    padding: 15px;
+    margin: 10px auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.producto-detalle img {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.producto-detalle h2 {
+    font-size: 1.5em;
+    color: #084853;
+    margin-bottom: 10px;
+}
+
+.producto-detalle p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.producto-detalle form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.producto-detalle input[type="number"] {
+    width: 45px;
+    padding: 5px;
+    margin-right: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.producto-detalle button {
+    background-color: #084853;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.producto-detalle button:hover {
+    background-color: #063a41;
+}
+
+/* Botón de regresar */
+.btn-regresar {
+    display: inline-block;
+    margin-top: 15px;
+    color: #084853;
+    text-decoration: none;
+    border: 1px solid #084853;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    border-radius: 5px;
+}
+
+.btn-regresar:hover {
+    background-color: #084853;
+    color: #fff;
+}
+
+/* Productos Similares */
+.productos-similares {
+    max-width: 100%;
+    padding: 15px;
+    margin: 10px auto;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.productos-similares h3 {
+    font-size: 1.3em;
+    color: #084853;
+    margin-bottom: 20px;
+}
+
+.similares {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.producto-similar {
+    width: 200px;
+    text-align: center;
+}
+
+.producto-similar img {
+    width: 100%;
+    max-width: 150px;
+    border-radius: 5px;
+}
+
+.producto-similar h4 {
+    font-size: 1em;
+    margin: 10px 0 5px;
+}
+
+.producto-similar p {
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Formulario de contacto */
+
+.contacto {
+    max-width: 100%;
+    width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.contacto h2 {
+    font-size: 2em;
+    color: #084853;
+    margin-bottom: 15px;
+}
+
+.contacto form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contacto label {
+    text-align: left;
+    font-size: 1em;
+    color: #333;
+}
+
+.contacto input[type="text"], 
+.contacto input[type="email"], 
+.contacto textarea {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contacto button {
+    background-color: #084853;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.contacto button:hover {
+    background-color: #063a41;
+}
+
+/* Contenedor del carrito */
+.carrito {
+    flex: 1;
+    width: 90%;
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Barra de progreso */
+.progress-bar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.progress-step {
+    width: 45%;
+    height: 15px;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+}
+
+.progress-step.active {
+    background-color: #084853;
+}
+
+.progress-step:before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    background-color: #084853;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    left: -10px;
+}
+
+.progress-step:last-child:before {
+    left: calc(100% - 10px);
+}
+
+/* Título y tabla del carrito */
+.carrito h2 {
+    font-size: 2em;
+    color: #084853;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tabla-carrito {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabla-carrito th, .tabla-carrito td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.tabla-carrito th {
+    background-color: #084853;
+    color: #fff;
+}
+
+/* Botones */
+.carrito .btn-eliminar, .carrito .btn-continuar {
+    background-color: #084853;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.carrito .btn-eliminar:hover, .carrito .btn-continuar:hover {
+    background-color: #063a41;
+}
+
+.carrito .total {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+
+/* Detalle productos (copia de emplados) */
+.detalle-contenedor {
+    padding: 20px;
+    border-radius: 8px;
+    height: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Tabla de detalle */
+.tabla-detalle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.fila-detalle {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #dddddd;
+    background-color: #f9f9f9;
+}
+
+.fila-detalle .columna-titulo {
+    background-color: #084853;
+    color: #ffffff;
+    flex: 1;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.fila-detalle .columna-valor {
+    flex: 2;
+    padding: 10px;
+    text-align: left;
+    border-left: 1px solid #dddddd; 
+}
+
+/* Centrar imagen y detalles del empleado */
+.detalle-empleado {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el botón */
+.boton-volver {
+    background-color: #084853;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.boton-volver:hover {
+    background-color: #063a41;
+}
+
+/* Diseño responsivo para pantallas pequeñas */
+@media (max-width: 600px) {
+    .detalle-contenedor {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .foto-perfil {
+        width: 150px;
+        height: 150px;
+    }
+
+    .detalle-contenedor h2 {
+        font-size: 18px;
+    }
+
+    .fila-detalle .columna-titulo, .fila-detalle .columna-valor {
+        padding: 8px;
+    }
 }

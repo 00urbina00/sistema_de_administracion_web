@@ -1,0 +1,1 @@
+<p>mipagina.com | todos los derechos reservados | <a href="#">Políticas de Privacidad</a> | <a href="#">Términos y Condiciones</a></p>
