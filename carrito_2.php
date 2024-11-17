@@ -1,12 +1,12 @@
 <?php
 session_start();
-require "funciones/conecta.php";
-$con = conecta();
-
 if (!isset($_SESSION['id_cliente'])) {
     header('Location: index.php');
     exit();
 }
+
+require "funciones/conecta.php";
+$con = conecta();
 
 $id_cliente = $_SESSION['id_cliente'];
 $query_pedido = "SELECT id FROM pedidos WHERE id_cliente = $id_cliente AND status = 0 LIMIT 1";
